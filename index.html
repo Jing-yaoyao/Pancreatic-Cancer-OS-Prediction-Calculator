@@ -136,7 +136,7 @@
     <div class="ic"><div class="ik">Endpoint</div><div class="iv">Overall survival</div><div class="ix">Death event</div></div>
     <div class="ic"><div class="ik">Time points</div><div class="iv">6 / 12 / 18 mo</div><div class="ix">Risk &amp; OS probability</div></div>
     <div class="ic"><div class="ik">OOB C-index</div><div class="iv" id="cindexVal">0.71</div><div class="ix" id="cindexNote">Model M3, internal (OOB)</div></div>
-    <div class="ic"><div class="ik">Cohort</div><div class="iv">n = 104</div><div class="ix">Single-centre PDAC</div></div>
+    <div class="ic"><div class="ik">Internal validation</div><div class="iv">Bootstrap / OOB</div><div class="ix">Out-of-bag resampling</div></div>
   </div>
 
   <!-- working area: inputs | results | explanation -->
@@ -160,35 +160,36 @@
 
     <div class="card">
       <h2><span class="ico">&#128737;</span> Risk explanation</h2>
-      <div class="muted" style="font-size:12px;margin-bottom:6px">Feature contributions for this patient (&beta;<sub>i</sub>&middot;x<sub>i</sub>, impact on the linear predictor).</div>
+      <div class="muted" style="font-size:12px;margin-bottom:6px">Feature contributions for this patient (&beta;<sub>i</sub>x<sub>i</sub>, contribution to the Cox linear predictor).</div>
       <div style="display:flex;gap:14px;font-size:11px;color:#8B91A1;margin-bottom:8px;flex-wrap:wrap">
-        <span><b style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#C98AA6;vertical-align:-1px"></b> raises risk</span>
-        <span><b style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#5B5FA2;vertical-align:-1px"></b> protective</span>
+        <span><b style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#C98AA6;vertical-align:-1px"></b> &uarr; higher predicted hazard</span>
+        <span><b style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#5B5FA2;vertical-align:-1px"></b> &darr; lower predicted hazard</span>
         <span><b style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#D9DDE3;vertical-align:-1px"></b> at baseline (0)</span>
       </div>
       <div class="contrib" id="contrib"></div>
-      <div class="note">Contributions reflect each feature's weight in the model's linear predictor; they do not imply causation. Interpret together with the overall clinical picture.</div>
+      <div class="note">Contributions represent each feature's contribution to the model linear predictor and do not imply causation. Interpret together with the overall clinical context.</div>
     </div>
 
   </div>
 
   <footer>
     <div class="decl">
-      <b>Developed from a single-centre retrospective PDAC cohort (n = 104).</b>
-      Internal validation was performed using bootstrap / out-of-bag (OOB) procedures.
-      This tool is for research use only.
+      Developed from a single-center retrospective PDAC cohort (n = 104). Internal validation was
+      performed using bootstrap resampling with out-of-bag (OOB) evaluation. This tool is for research use only.
     </div>
-    <p><b>Model definitions.</b> M3 (RNAscope-based model) = clinical + histopathology + RNAscope features;
-       M4 (Integrated model) = full model additionally including IHC features. Top contributor in both:
-       RNAscope epithelial-nuclear positivity.</p>
-    <p><b>Method.</b> Cox proportional-hazards with Elastic-Net feature selection.
-       Linear predictor <code>lp = &Sigma; &beta;<sub>i</sub> x<sub>i</sub></code>;
-       survival <code>S(t) = S&#8320;(t)<sup>exp(lp)</sup></code>; death risk <code>= 1 &minus; S(t)</code>.
-       Baseline <code>S&#8320;(t)</code> from the full-development-cohort final model (Breslow estimator).</p>
-    <p class="muted">Discrimination (OOB C-index): M3 = 0.71, M4 = 0.73 (aggregated out-of-bag bootstrap predictions).
-       Absolute probabilities come from the final model fitted to the full development cohort.
-       Cohort n = 104, events = 104 (all deaths, no censoring in OS), maximum follow-up ~1391 days.
-       No external validation. Not for individual clinical decision-making.</p>
+    <p><b>Model definitions.</b><br>
+       M3 (RNAscope-based model) = clinical/pathological variables + RNAscope features.<br>
+       M4 (Integrated model) = M3 features additionally combined with IHC features.</p>
+    <p><b>Method.</b> Cox proportional-hazards model with Elastic-Net feature selection.
+       Linear predictor: <code>lp = &Sigma;&beta;<sub>i</sub>x<sub>i</sub></code>.
+       Survival probability: <code>S(t) = S&#8320;(t)<sup>exp(lp)</sup></code>.
+       Baseline survival <code>S&#8320;(t)</code> was estimated using the Breslow estimator from the final
+       model fitted to the full development cohort.</p>
+    <p class="muted">Discrimination (OOB C-index based on aggregated out-of-bag bootstrap predictions):
+       M3 = 0.71; M4 = 0.73.
+       Absolute survival probabilities are generated from the final model fitted to the full development cohort.
+       OS cohort: n = 104, 104 observed events, no censoring, maximum follow-up &asymp; 1391 days.
+       No external validation was performed. This tool should not be used for individual clinical decision-making.</p>
   </footer>
 
 </div>
