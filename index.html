@@ -75,8 +75,8 @@
 
   <div class="toggle">
     <span class="lbl">Model:</span>
-    <button data-m="M3" class="active">M3 &nbsp;(Clinical + Histopathology + RNAscope)</button>
-    <button data-m="M4">M4 &nbsp;(Full: + IHC)</button>
+    <button data-m="M3" class="active">(M3) &nbsp;RNAscope-based model</button>
+    <button data-m="M4">(M4) &nbsp;Integrated model</button>
     <span class="hint" id="modelHint"></span>
   </div>
 
@@ -91,8 +91,8 @@
   <div class="grid" id="inputPanels"></div>
 
   <footer>
-    <p><b>Model definitions.</b> M3 = clinical + histopathology + RNAscope features;
-       M4 = full model additionally including IHC features. Top contributor in both:
+    <p><b>Model definitions.</b> M3 (RNAscope-based model) = clinical + histopathology + RNAscope features;
+       M4 (Integrated model) = full model additionally including IHC features. Top contributor in both:
        RNAscope epithelial-nuclear positivity.</p>
     <p><b>Method.</b> Cox proportional-hazards with Elastic-Net feature selection.
        Linear predictor <code>lp = &Sigma; &beta;<sub>i</sub> x<sub>i</sub></code>;
